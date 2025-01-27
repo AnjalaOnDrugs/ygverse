@@ -1,5 +1,118 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            /* background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('https://afamilycdn.com/2019/11/8/eixvgh5u0aa3euy-15732001931981428943672.jpg'); */
+            background-size: cover;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            width: 90%;
+            max-width: 400px;
+            animation: glow 2s infinite alternate;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: -0.5rem;
+        }
+
+        h1 img {
+          width: 150px;
+          height: 150px;
+        }
+
+        input {
+            padding: 1rem;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        input:focus {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.02);
+        }
+
+        button {
+            padding: 1rem;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+            }
+            to {
+                box-shadow: 0 0 40px rgba(0, 255, 255, 0.5);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1><a href="https://imgbb.com/"><img src="https://i.ibb.co/KDV8L7Q/1.png" alt="1" border="0"></a></h1>
+        <form class="login-form">
+            <input type="text" placeholder="Username" required>
+            <input type="password" placeholder="Password" required>
+            <button type="submit">Enter</button>
+        </form>
+    </div>
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html>
 
 <head>
   <meta charset="UTF-8" />
@@ -27,4 +140,4 @@
     title="Photo Upload &amp; Viewer"></iframe>
 </body>
 
-</html>
+</html> -->
