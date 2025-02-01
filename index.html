@@ -20,34 +20,41 @@
   </style>
 </head>
 <script>
-        // Debug logging to check if messages are being received
-        console.log('Parent page loaded');
-        
-        // Listen for messages from iframe
-        window.addEventListener('message', function(event) {
-            console.log('Message received:', event.data);  // Debug log
+       // Make sure event listener is added before iframe loads
+       document.addEventListener('DOMContentLoaded', function() {
+            console.log('Parent page loaded');
             
-            try {
-                const data = JSON.parse(event.data);
-                console.log('Parsed data:', data);  // Debug log
+            // Listen for messages from iframe
+            window.addEventListener('message', function(event) {
+                console.log('Message received in parent:', event.data);
                 
-                if (data.type === 'setLoginId') {
-                    console.log('Setting loginId:', data.value);  // Debug log
-                    localStorage.setItem('loginid', data.value);
+                try {
+                    // Handle both string and object messages
+                    let data = event.data;
+                    if (typeof data === 'string') {
+                        data = JSON.parse(data);
+                    }
                     
-                    // Verify the storage
-                    const storedValue = localStorage.getItem('loginid');
-                    console.log('Stored loginId:', storedValue);  // Debug log
+                    console.log('Parsed data in parent:', data);
+                    
+                    if (data.type === 'setLoginId') {
+                        console.log('Setting loginId:', data.value);
+                        localStorage.setItem('loginid', data.value);
+                        
+                        // Verify storage
+                        const storedValue = localStorage.getItem('loginid');
+                        console.log('Stored loginId:', storedValue);
+                    }
+                } catch (e) {
+                    console.error('Error processing message in parent:', e);
                 }
-            } catch (e) {
-                console.error('Error processing message:', e);
-            }
+            });
         });
 
-        // On page load, check if we have a stored loginId
+        // Check stored loginId on page load
         window.onload = function() {
             const loginId = localStorage.getItem('loginid');
-            console.log('Page loaded. Current loginId:', loginId);  // Debug log
+            console.log('Parent page loaded. Current loginId:', loginId);
         };
     </script>
 
