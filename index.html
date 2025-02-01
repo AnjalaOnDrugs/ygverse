@@ -20,7 +20,10 @@
   </style>
 </head>
 <script>
-    console.log("YGverse app: "+ localStorage.getItem('loginid'));
+    window.onload = function() {
+        console.log("YGverse app: "+ localStorage.getItem('loginid'));
+    }
+    
 </script>
 <body>
   <iframe style="width: 100%; height: 100%;" frameBorder='0' id="userHtmlFrame"
