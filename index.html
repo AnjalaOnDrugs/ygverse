@@ -20,9 +20,40 @@
   </style>
 </head>
 <script>
-    window.onload = function() {
-        console.log("YGverse app: "+ localStorage.getItem('loginid'));
-    }
+        window.addEventListener('message', function(event) {
+            // Verify the origin of the message
+            if (event.origin.includes('script.google.com')) {
+                try {
+                    const data = JSON.parse(event.data);
+                    if (data.type === 'setLoginId') {
+                        localStorage.setItem('loginid', data.value);
+                        console.log('Login ID saved:', data.value);
+                    }
+                } catch (e) {
+                    console.error('Error processing message:', e);
+                }
+            }
+        });
+
+        // Function to send loginid to iframe when page loads
+        window.onload = function() {
+            const loginId = localStorage.getItem('loginid');
+            console.log("Current loginid:", loginId);
+            
+            // Wait for iframe to load
+            const iframe = document.getElementById('userHtmlFrame');
+            iframe.onload = function() {
+                if (loginId) {
+                    // Send loginId to iframe
+                    iframe.contentWindow.postMessage(JSON.stringify({
+                        type: 'loginId',
+                        value: loginId
+                    }), '*');
+                }
+            };
+        };
+    </script>
+
     
 </script>
 <body>
