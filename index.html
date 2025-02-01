@@ -20,37 +20,34 @@
   </style>
 </head>
 <script>
+        // Debug logging to check if messages are being received
+        console.log('Parent page loaded');
+        
+        // Listen for messages from iframe
         window.addEventListener('message', function(event) {
-            // Verify the origin of the message
-            if (event.origin.includes('script.google.com')) {
-                try {
-                    const data = JSON.parse(event.data);
-                    if (data.type === 'setLoginId') {
-                        localStorage.setItem('loginid', data.value);
-                        console.log('Login ID saved:', data.value);
-                    }
-                } catch (e) {
-                    console.error('Error processing message:', e);
+            console.log('Message received:', event.data);  // Debug log
+            
+            try {
+                const data = JSON.parse(event.data);
+                console.log('Parsed data:', data);  // Debug log
+                
+                if (data.type === 'setLoginId') {
+                    console.log('Setting loginId:', data.value);  // Debug log
+                    localStorage.setItem('loginid', data.value);
+                    
+                    // Verify the storage
+                    const storedValue = localStorage.getItem('loginid');
+                    console.log('Stored loginId:', storedValue);  // Debug log
                 }
+            } catch (e) {
+                console.error('Error processing message:', e);
             }
         });
 
-        // Function to send loginid to iframe when page loads
+        // On page load, check if we have a stored loginId
         window.onload = function() {
             const loginId = localStorage.getItem('loginid');
-            console.log("Current loginid:", loginId);
-            
-            // Wait for iframe to load
-            const iframe = document.getElementById('userHtmlFrame');
-            iframe.onload = function() {
-                if (loginId) {
-                    // Send loginId to iframe
-                    iframe.contentWindow.postMessage(JSON.stringify({
-                        type: 'loginId',
-                        value: loginId
-                    }), '*');
-                }
-            };
+            console.log('Page loaded. Current loginId:', loginId);  // Debug log
         };
     </script>
 
